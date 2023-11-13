@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { CD } from './cd.entity.js';
+import { Cd } from './cd.entity.js';
 import { Lieder } from './lieder.entity.js';
 
 // erforderlich in src/config/db.ts und src/buch/buch.module.ts
-export const entities = [Lieder, CD];
+export const entities = [Lieder, Cd];

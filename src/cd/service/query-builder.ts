@@ -3,7 +3,7 @@
  * @packageDocumentation
  */
 
-import { CD } from '../entity/cd.entity.js';
+import { Cd } from '../entity/cd.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Lieder } from '../entity/lieder.entity.js';
@@ -25,17 +25,17 @@ export interface BuildIdParams {
  */
 @Injectable()
 export class QueryBuilder {
-    readonly #cdAlias = `${CD.name.charAt(0).toLowerCase()}${CD.name.slice(1)}`;
+    readonly #cdAlias = `${Cd.name.charAt(0).toLowerCase()}${Cd.name.slice(1)}`;
 
     readonly #liedAlias = `${Lieder.name
         .charAt(0)
         .toLowerCase()}${Lieder.name.slice(1)}`;
 
-    readonly #repo: Repository<CD>;
+    readonly #repo: Repository<Cd>;
 
     readonly #logger = getLogger(QueryBuilder.name);
 
-    constructor(@InjectRepository(CD) repo: Repository<CD>) {
+    constructor(@InjectRepository(Cd) repo: Repository<Cd>) {
         this.#repo = repo;
     }
 
@@ -44,12 +44,12 @@ export class QueryBuilder {
      * @param id ID der gesuchten CD
      * @returns QueryBuilder
      */
-    buildId({ id, mitLiedern = false }: BuildIdParams) {
+    buildId({ id, mitLiedern = true }: BuildIdParams) {
         const queryBuilder = this.#repo.createQueryBuilder(this.#cdAlias);
-        queryBuilder.select(`${this.#cdAlias}.titel`);
+        //queryBuilder.select(`${this.#cdAlias}.titel`);
         if (mitLiedern) {
             queryBuilder.leftJoinAndSelect(
-                `${this.#cdAlias}.lieder`,
+                `${this.#cdAlias}.lied`,
                 this.#liedAlias,
             );
         }

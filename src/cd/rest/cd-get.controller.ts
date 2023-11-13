@@ -14,7 +14,7 @@ import {
     ApiResponse,
     ApiTags,
 } from '@nestjs/swagger';
-import { type CD, type CDGenre } from '../../cd/entity/cd.entity.js';
+import { type CDGenre, type Cd } from '../../cd/entity/cd.entity.js';
 import {
     CdReadService,
     type Suchkriterien,
@@ -58,7 +58,7 @@ export interface Links {
 
 /** Cd-Objekt mit HATEOAS-Links */
 export type CdModel = Omit<
-    CD,
+    Cd,
     'lieder' | 'aktualisiert' | 'erzeugt' | 'id' | 'version'
 > & {
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -175,7 +175,7 @@ export class CdGetController {
             return res.sendStatus(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        const cd: CD = await this.#service.findById({ id });
+        const cd: Cd = await this.#service.findById({ id });
         if (this.#logger.isLevelEnabled('debug')) {
             this.#logger.debug('getById(): cd=%s', cd.toString());
         }
@@ -236,7 +236,7 @@ export class CdGetController {
         return res.contentType(APPLICATION_HAL_JSON).json(result).send();
     }
 
-    #toModel(cd: CD, req: Request, all = true) {
+    #toModel(cd: Cd, req: Request, all = true) {
         const baseUri = getBaseUri(req);
         this.#logger.debug('#toModel: baseUri=%s', baseUri);
         const { id } = cd;

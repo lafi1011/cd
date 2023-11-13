@@ -49,6 +49,7 @@ import {
     VersionColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+//import { Cd } from './cd.entity';
 import { DecimalTransformer } from './decimal-transformer.js';
 import { Lieder } from './lieder.entity.js';
 import { dbType } from '../../config/dbtype.js';
@@ -63,7 +64,7 @@ export type CDGenre = 'HIP HOP' | 'TRAP' | 'Rock';
  */
 // https://typeorm.io/entities
 @Entity()
-export class CD {
+export class Cd {
     @Column('int')
     // https://typeorm.io/entities#primary-columns
     // CAVEAT: zuerst @Column() und erst dann @PrimaryGeneratedColumn()

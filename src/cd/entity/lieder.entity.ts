@@ -22,7 +22,7 @@ import {
     ManyToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CD } from './cd.entity.js';
+import { Cd } from './cd.entity.js';
 
 @Entity()
 export class Lieder {
@@ -38,9 +38,9 @@ export class Lieder {
     @Column('int')
     readonly songLaenge: string | undefined;
 
-    @ManyToOne(() => CD, (cd) => cd.lieder)
+    @ManyToOne(() => Cd, (cd) => cd.lieder)
     @JoinColumn({ name: 'cd_id' })
-    cd: CD | undefined;
+    cd: Cd | undefined;
 
     public toString = (): string =>
         JSON.stringify({

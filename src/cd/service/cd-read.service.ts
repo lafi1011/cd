@@ -1,4 +1,4 @@
-import { CD, type CDGenre } from './../entity/cd.entity.js';
+import { type CDGenre, Cd } from './../entity/cd.entity.js';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryBuilder } from './query-builder.js';
 import RE2 from 're2';
@@ -42,7 +42,7 @@ export class CdReadService {
     readonly #logger = getLogger(CdReadService.name);
 
     constructor(queryBuilder: QueryBuilder) {
-        const cdDummy = new CD();
+        const cdDummy = new Cd();
         this.#cdProps = Object.getOwnPropertyNames(cdDummy);
         this.#queryBuilder = queryBuilder;
     }
@@ -57,7 +57,7 @@ export class CdReadService {
     async findById({ id, mitLiedern = false }: FindByIdParams) {
         this.#logger.debug('findById: id=%d', id);
 
-        const cd: CD | null = await this.#queryBuilder
+        const cd: Cd | null = await this.#queryBuilder
             .buildId({ id, mitLiedern })
             .getOne();
         if (cd === null) {
@@ -66,7 +66,7 @@ export class CdReadService {
         }
 
         if (this.#logger.isLevelEnabled('debug')) {
-            this.#logger.debug('findById: buch=%s, titel=%o', cd.toString());
+            this.#logger.debug('findById: cd=%s', cd.toString());
             if (mitLiedern) {
                 this.#logger.debug('findById: lieder=%o', cd.lieder);
             }
