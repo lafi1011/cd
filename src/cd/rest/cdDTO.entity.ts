@@ -36,7 +36,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { type CDGenre } from '../entity/cd.entity.js';
-import { LiederDTO } from './liederDTO.entity.js';
+import { LiedDTO } from './liedDTO.entity.js';
 import { Type } from 'class-transformer';
 
 export const MAX_RATING = 5;
@@ -91,10 +91,10 @@ export class CdDTO extends CdDtoOhneRef {
     @IsOptional()
     @IsArray()
     @ValidateNested({ each: true })
-    @Type(() => LiederDTO)
-    @ApiProperty({ type: [LiederDTO] })
-    readonly lieder: LiederDTO[] | undefined;
+    @Type(() => LiedDTO)
+    @ApiProperty({ type: [LiedDTO] })
+    readonly lieder: LiedDTO[] | undefined;
 
-    // LiederDTO
+    // LiedDTO
 }
 /* eslint-enable max-classes-per-file, @typescript-eslint/no-magic-numbers */

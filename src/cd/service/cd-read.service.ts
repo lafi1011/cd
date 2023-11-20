@@ -10,7 +10,7 @@ import { getLogger } from '../../logger/logger.js';
 export interface FindByIdParams {
     /** ID der gesuchten CD */
     readonly id: number;
-    /** Sollen die Lieder mitgeladen werden? */
+    /** Sollen die Lied mitgeladen werden? */
     readonly mitLiedern?: boolean;
 }
 export interface Suchkriterien {

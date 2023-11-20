@@ -6,7 +6,7 @@
 import { Cd } from '../entity/cd.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-import { Lieder } from '../entity/lieder.entity.js';
+import { Lied } from '../entity/lied.entity.js';
 import { Repository } from 'typeorm';
 import { type Suchkriterien } from './cd-read.service.js';
 import { getLogger } from '../../logger/logger.js';
@@ -27,9 +27,9 @@ export interface BuildIdParams {
 export class QueryBuilder {
     readonly #cdAlias = `${Cd.name.charAt(0).toLowerCase()}${Cd.name.slice(1)}`;
 
-    readonly #liedAlias = `${Lieder.name
+    readonly #liedAlias = `${Lied.name
         .charAt(0)
-        .toLowerCase()}${Lieder.name.slice(1)}`;
+        .toLowerCase()}${Lied.name.slice(1)}`;
 
     readonly #repo: Repository<Cd>;
 
@@ -44,12 +44,12 @@ export class QueryBuilder {
      * @param id ID der gesuchten CD
      * @returns QueryBuilder
      */
-    buildId({ id, mitLiedern = true }: BuildIdParams) {
+    buildId({ id, mitLiedern = false }: BuildIdParams) {
         const queryBuilder = this.#repo.createQueryBuilder(this.#cdAlias);
         //queryBuilder.select(`${this.#cdAlias}.titel`);
         if (mitLiedern) {
             queryBuilder.leftJoinAndSelect(
-                `${this.#cdAlias}.lied`,
+                `${this.#cdAlias}.lieder`,
                 this.#liedAlias,
             );
         }

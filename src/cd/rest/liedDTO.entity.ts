@@ -27,13 +27,13 @@ import { MaxLength } from 'class-validator';
 /**
  * Entity-Klasse für Abbildung ohne TypeORM.
  */
-export class LiederDTO {
+export class LiedDTO {
     @MaxLength(32)
     @ApiProperty({ example: 'Der Titel', type: String })
-    readonly liedTitel!: string;
+    readonly titel!: string;
 
     @MaxLength(32)
     @ApiProperty({ example: '3.25', type: String })
-    readonly songLaenge!: string;
+    readonly laenge!: string;
 }
 /* eslint-enable @typescript-eslint/no-magic-numbers */

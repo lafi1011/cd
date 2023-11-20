@@ -25,7 +25,7 @@ import {
 import { Cd } from './cd.entity.js';
 
 @Entity()
-export class Lieder {
+export class Lied {
     @Column('int')
     // https://typeorm.io/entities#primary-columns
     // CAVEAT: zuerst @Column() und erst dann @PrimaryGeneratedColumn()
@@ -33,10 +33,10 @@ export class Lieder {
     id: number | undefined;
 
     @Column('varchar', { unique: true, length: 32 })
-    readonly liedTitel!: string;
+    readonly titel!: string;
 
     @Column('int')
-    readonly songLaenge: string | undefined;
+    readonly laenge: string | undefined;
 
     @ManyToOne(() => Cd, (cd) => cd.lieder)
     @JoinColumn({ name: 'cd_id' })
@@ -45,7 +45,7 @@ export class Lieder {
     public toString = (): string =>
         JSON.stringify({
             id: this.id,
-            liedTitel: this.liedTitel,
-            songLaenge: this.songLaenge,
+            titel: this.titel,
+            laenge: this.laenge,
         });
 }

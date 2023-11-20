@@ -21,19 +21,17 @@
  * @packageDocumentation
  */
 
-import { Cd } from '../entity/cd.entity.js';
-import { CdReadService } from './cd-read.service.js';
-// eslint-disable-next-line sort-imports
 import { type DeleteResult, Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-// eslint-disable-next-line sort-imports
 import {
     IsrcExistsException,
     VersionInvalidException,
     VersionOutdatedException,
 } from './exceptions.js';
-import { Lieder } from '../entity/lieder.entity.js';
+import { Cd } from '../entity/cd.entity.js';
+import { CdReadService } from './cd-read.service.js';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Lied } from '../entity/lied.entity.js';
 import { MailService } from '../../mail/mail.service.js';
 import RE2 from 're2';
 import { getLogger } from '../../logger/logger.js';
@@ -78,7 +76,7 @@ export class CdWriteService {
      * Ein neues Cd soll angelegt werden.
      * @param cd Das neu abzulegende Cd
      * @returns Die ID des neu angelegten Cdes
-     * @throws IsbnExists falls die ISBN-Nummer bereits existiert
+     * @throws IsrcExists falls die ISBN-Nummer bereits existiert
      */
     async create(cd: Cd): Promise<number> {
         this.#logger.debug('create: cd=%o', cd);
@@ -131,12 +129,12 @@ export class CdWriteService {
      * @returns true, falls das Cd vorhanden war und gelöscht wurde. Sonst false.
      */
     async delete(id: number) {
-        this.#logger.debug('delete: id=%d', id);
+        this.#logger.debug('das auch delete: id=%d', id);
         const cd = await this.#readService.findById({
             id,
             mitLiedern: true,
         });
-
+        this.#logger.debug('das auch delete: cd=%d', cd);
         let deleteResult: DeleteResult | undefined;
         await this.#repo.manager.transaction(async (transactionalMgr) => {
             // Das Cd zur gegebenen ID mit Titel und Abb. asynchron loeschen
@@ -144,8 +142,8 @@ export class CdWriteService {
             // TODO "cascade" funktioniert nicht beim Loeschen
 
             const lieder = cd.lieder ?? [];
-            for (const abbildung of lieder) {
-                await transactionalMgr.delete(Lieder, abbildung.id);
+            for (const lied of lieder) {
+                await transactionalMgr.delete(Lied, lied.id);
             }
 
             deleteResult = await transactionalMgr.delete(Cd, id);

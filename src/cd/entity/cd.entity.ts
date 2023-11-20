@@ -51,7 +51,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 //import { Cd } from './cd.entity';
 import { DecimalTransformer } from './decimal-transformer.js';
-import { Lieder } from './lieder.entity.js';
+import { Lied } from './lied.entity.js';
 import { dbType } from '../../config/dbtype.js';
 
 /**
@@ -116,10 +116,10 @@ export class Cd {
     readonly titel: string | undefined;
 
     // undefined wegen Updates
-    @OneToMany(() => Lieder, (abbildung) => abbildung.cd, {
+    @OneToMany(() => Lied, (abbildung) => abbildung.cd, {
         cascade: ['insert', 'remove'],
     })
-    readonly lieder: Lieder[] | undefined;
+    readonly lieder: Lied[] | undefined;
 
     // https://typeorm.io/entities#special-columns
     // https://typeorm.io/entities#column-types-for-postgres

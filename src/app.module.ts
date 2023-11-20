@@ -23,7 +23,7 @@ import { type ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './security/auth/auth.module.js';
 import { CdGetController } from './cd/rest/cd-get.controller.js';
 import { CdModule } from './cd/cd.module.js';
-//import { CdWriteController } from './cd/rest/cd-write.controller.js';
+import { CdWriteController } from './cd/rest/cd-write.controller.js';
 import { DevModule } from './config/dev/dev.module.js';
 import { GraphQLModule } from '@nestjs/graphql';
 import { HealthModule } from './health/health.module.js';
@@ -51,6 +51,7 @@ export class AppModule implements NestModule {
             // eslint-disable-next-line prettier/prettier
             .forRoutes(
                 CdGetController,
+                CdWriteController,
                 'auth',
                 'graphql',
             );

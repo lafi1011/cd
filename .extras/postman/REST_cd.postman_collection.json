@@ -58,7 +58,7 @@
 								{
 									"key": "id",
 									"value": "1",
-									"description": "Buch ID"
+									"description": "Cd ID"
 								}
 							]
 						}
@@ -115,7 +115,7 @@
 								{
 									"key": "id",
 									"value": "1",
-									"description": "Buch ID"
+									"description": "Cd ID"
 								}
 							]
 						}
@@ -177,7 +177,7 @@
 								{
 									"key": "id",
 									"value": "1",
-									"description": "Buch ID"
+									"description": "Cd ID"
 								}
 							]
 						}
@@ -237,7 +237,7 @@
 								{
 									"key": "id",
 									"value": "999999",
-									"description": "Buch ID"
+									"description": "Cd ID"
 								}
 							]
 						}
@@ -265,7 +265,7 @@
 									"    const contentType = response.headers.get('Content-Type');\r",
 									"    pm.expect(contentType).to.match(/^application\\/hal\\+json(; charset=utf-8)?/u);\r",
 									"});\r",
-									"pm.test('Body: mind. 1 Buch und Self-Link vorhanden', () => {\r",
+									"pm.test('Body: mind. 1 Cd und Self-Link vorhanden', () => {\r",
 									"    const body = pm.response.json();\r",
 									"    const { buecher } = body._embedded;\r",
 									"    pm.expect(buecher).to.be.an('array').that.is.not.empty;\r",
@@ -1277,7 +1277,7 @@
 					"response": []
 				},
 				{
-					"name": "Buchart KINDLE",
+					"name": "Cdgenre KINDLE",
 					"event": [
 						{
 							"listen": "test",
@@ -2149,7 +2149,7 @@
 			"name": "Neuanlegen",
 			"item": [
 				{
-					"name": "Neues Buch",
+					"name": "Neues Cd",
 					"event": [
 						{
 							"listen": "test",
@@ -2184,7 +2184,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"isbn\": \"978-0-007-00644-1\",\r\n  \"rating\": 1,\r\n  \"art\": \"KINDLE\",\r\n  \"preis\": 99.99,\r\n  \"rabatt\": 0.123,\r\n  \"lieferbar\": true,\r\n  \"datum\": \"2022-01-31\",\r\n  \"homepage\": \"https://post.rest\",\r\n  \"schlagwoerter\": [\"JAVASCRIPT\", \"TYPESCRIPT\"],\r\n  \"titel\": {\r\n    \"titel\": \"Titelpost\",\r\n    \"untertitel\": \"untertitelpost\"\r\n  },\r\n  \"abbildungen\": [{\r\n    \"beschriftung\": \"Abb. 1\",\r\n    \"contentType\": \"img/png\"\r\n  }]\r\n}",
+							"raw": "{\r\n  \"isrc\": \"978-0-007-00644-1\",\r\n  \"bewertung\": 1,\r\n  \"Genre\": \"TRAP\",\r\n  \"preis\": 99.99,\r\n   \"verfuegbar\": true,\r\n  \"erscheinungsdatum\": \"2022-01-31\",\r\n  \"interpret\": \"tripdrop\",\r\n \"titel\": \"titel\",\r\n  \"lieder\": [{\r\n    \"titel\": \"track1\",\r\n    \"laenge\": \"img/png\"\r\n  }]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2201,7 +2201,7 @@
 					"response": []
 				},
 				{
-					"name": "Neues Buch mit bereits existierender ISBN",
+					"name": "Neues Cd mit bereits existierender ISRC",
 					"event": [
 						{
 							"listen": "test",
@@ -2218,7 +2218,7 @@
 									"pm.test('Fehlermeldung im Response Body', () => {\r",
 									"    const body = pm.response.json();\r",
 									"    const { message } = body;\r",
-									"    pm.expect(message).to.be.a('string').that.includes('ISBN');\r",
+									"    pm.expect(message).to.be.a('string').that.includes('ISRC');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2254,7 +2254,7 @@
 					"response": []
 				},
 				{
-					"name": "Neues Buch mit ungültigen Daten",
+					"name": "Neues Cd mit ungültigen Daten",
 					"event": [
 						{
 							"listen": "test",
@@ -2309,7 +2309,7 @@
 					"response": []
 				},
 				{
-					"name": "Neues Buch als kunde",
+					"name": "Neues Cd als kunde",
 					"event": [
 						{
 							"listen": "test",
@@ -2373,7 +2373,7 @@
 					"response": []
 				},
 				{
-					"name": "Neues Buch ohne Login",
+					"name": "Neues Cd ohne Login",
 					"event": [
 						{
 							"listen": "test",
@@ -2467,7 +2467,7 @@
 			"name": "Ändern",
 			"item": [
 				{
-					"name": "Buch 30 ändern",
+					"name": "Cd 30 ändern",
 					"event": [
 						{
 							"listen": "test",
@@ -2496,7 +2496,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"isbn\": \"978-0-201-63361-0\",\r\n  \"rating\": 5,\r\n  \"art\": \"KINDLE\",\r\n  \"preis\": 3333,\r\n  \"rabatt\": 0.33,\r\n  \"lieferbar\": true,\r\n  \"datum\": \"2022-03-03\",\r\n  \"homepage\": \"https://put.rest\",\r\n  \"schlagwoerter\": [\"JAVASCRIPT\"]\r\n}",
+							"raw": "{\r\n  \"isrc\": \"978-0-201-63361-0\",\r\n  \"bewertung\": 1,\r\n  \"Genre\": \"TRAP\",\r\n  \"preis\": 99.99,\r\n   \"verfuegbar\": true,\r\n  \"erscheinungsdatum\": \"2022-01-31\",\r\n  \"interpret\": \"tripdrop\",\r\n \"titel\": \"titel\",\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2522,7 +2522,7 @@
 					"response": []
 				},
 				{
-					"name": "Buch 30 mit falscher Versionsnummer ändern",
+					"name": "Cd 30 mit falscher Versionsnummer ändern",
 					"event": [
 						{
 							"listen": "test",
@@ -2583,7 +2583,7 @@
 					"response": []
 				},
 				{
-					"name": "Buch 30 ohne Versionsnummer ändern",
+					"name": "Cd 30 ohne Versionsnummer ändern",
 					"event": [
 						{
 							"listen": "test",
@@ -2644,7 +2644,7 @@
 					"response": []
 				},
 				{
-					"name": "Buch 30 mit alter Versionsnummer ändern",
+					"name": "Cd 30 mit alter Versionsnummer ändern",
 					"event": [
 						{
 							"listen": "test",
@@ -2705,7 +2705,7 @@
 					"response": []
 				},
 				{
-					"name": "Nicht-vorhandenes Buch 999999 ändern",
+					"name": "Nicht-vorhandenes Cd 999999 ändern",
 					"event": [
 						{
 							"listen": "test",
@@ -2766,7 +2766,7 @@
 					"response": []
 				},
 				{
-					"name": "Buch 30 mit ungültigen Daten ändern",
+					"name": "Cd 30 mit ungültigen Daten ändern",
 					"event": [
 						{
 							"listen": "test",
@@ -2872,7 +2872,7 @@
 			"name": "Löschen",
 			"item": [
 				{
-					"name": "Buch 50 löschen",
+					"name": "Cd 50 löschen",
 					"event": [
 						{
 							"listen": "test",
@@ -2927,7 +2927,7 @@
 					"response": []
 				},
 				{
-					"name": "Nicht-vorhandenes Buch 999999 löschen",
+					"name": "Nicht-vorhandenes Cd 999999 löschen",
 					"event": [
 						{
 							"listen": "test",

@@ -19,8 +19,8 @@ import { CdGetController } from './rest/cd-get.controller.js';
 //import { CdMutationResolver } from './graphql/cd-mutation.resolver.js';
 //import { CdQueryResolver } from './graphql/cd-query.resolver.js';
 import { CdReadService } from './service/cd-read.service.js';
-//import { CdWriteController } from './rest/cd-write.controller.js';
-//import { CdWriteService } from './service/cd-write.service.js';
+import { CdWriteController } from './rest/cd-write.controller.js';
+import { CdWriteService } from './service/cd-write.service.js';
 import { MailModule } from '../mail/mail.module.js';
 import { Module } from '@nestjs/common';
 import { QueryBuilder } from './service/query-builder.js';
@@ -39,17 +39,16 @@ import { entities } from './entity/entities.js';
  */
 @Module({
     imports: [MailModule, TypeOrmModule.forFeature(entities), AuthModule],
-    controllers: [CdGetController],
+    controllers: [CdGetController, CdWriteController],
     // Provider sind z.B. Service-Klassen fuer DI
     providers: [
         CdReadService,
-        /**         CdWriteService,
-        CdQueryResolver,
-        CdMutationResolver,
-        */
+        CdWriteService,
+        //CdQueryResolver,
+        //CdMutationResolver,
         QueryBuilder,
     ],
     // Export der Provider fuer DI in anderen Modulen
-    exports: [CdReadService],
+    exports: [CdReadService, CdWriteService],
 })
 export class CdModule {}

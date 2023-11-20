@@ -48,13 +48,11 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { CdDTO, CdDtoOhneRef } from './cdDTO.entity.js';
+import { Request, Response } from 'express';
 import { type Cd } from '../entity/cd.entity.js';
 import { CdWriteService } from '../service/cd-write.service.js';
 import { JwtAuthGuard } from '../../security/auth/jwt/jwt-auth.guard.js';
-//import { LiederDTO } from './liederDTO.entity';
-// eslint-disable-next-line sort-imports
-import { Request, Response } from 'express';
-import { type Lieder } from '../entity/lieder.entity.js';
+import { type Lied } from '../entity/lied.entity.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { RolesAllowed } from '../../security/auth/roles/roles-allowed.decorator.js';
 import { RolesGuard } from '../../security/auth/roles/roles.guard.js';
@@ -117,7 +115,7 @@ export class CdWriteController {
     }
 
     /**
-     * Ein vorhandenes Cd wird asynchron aktualisiert.
+     * Eine vorhanden Cd wird asynchron aktualisiert.
      *
      * Im Request-Objekt von Express muss die ID des zu aktualisierenden Cdes
      * als Pfad-Parameter enthalten sein. Außerdem muss im Rumpf das zu
@@ -209,16 +207,16 @@ export class CdWriteController {
     })
     @ApiForbiddenResponse({ description: MSG_FORBIDDEN })
     async delete(@Param('id') id: number) {
-        this.#logger.debug('delete: id=%s', id);
+        this.#logger.debug('das hier müsste iegentlich aus delete: id=%s', id);
         await this.#service.delete(id);
     }
 
     #cdDtoToCd(cdDTO: CdDTO): Cd {
         const lieder = cdDTO.lieder?.map((liederDTO) => {
-            const lied: Lieder = {
+            const lied: Lied = {
                 id: undefined,
-                liedTitel: liederDTO.liedTitel,
-                songLaenge: liederDTO.songLaenge,
+                titel: liederDTO.titel,
+                laenge: liederDTO.laenge,
                 cd: undefined,
             };
             return lied;
