@@ -16,8 +16,8 @@
  */
 import { AuthModule } from '../security/auth/auth.module.js';
 import { CdGetController } from './rest/cd-get.controller.js';
-//import { CdMutationResolver } from './graphql/cd-mutation.resolver.js';
-//import { CdQueryResolver } from './graphql/cd-query.resolver.js';
+import { CdMutationResolver } from './graphql/cd-mutation.resolver.js';
+import { CdQueryResolver } from './graphql/cd-query.resolver.js';
 import { CdReadService } from './service/cd-read.service.js';
 import { CdWriteController } from './rest/cd-write.controller.js';
 import { CdWriteService } from './service/cd-write.service.js';
@@ -44,8 +44,8 @@ import { entities } from './entity/entities.js';
     providers: [
         CdReadService,
         CdWriteService,
-        //CdQueryResolver,
-        //CdMutationResolver,
+        CdQueryResolver,
+        CdMutationResolver,
         QueryBuilder,
     ],
     // Export der Provider fuer DI in anderen Modulen

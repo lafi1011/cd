@@ -19,7 +19,7 @@ import { AuthService } from './service/auth.service.js';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy.js';
 import { LocalStrategy } from './local/local.strategy.js';
-//import { LoginResolver } from './login.resolver.js';
+import { LoginResolver } from './login.resolver.js';
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { UserService } from './service/user.service.js';
@@ -49,7 +49,7 @@ const { privateKey, signOptions, verifyOptions } = jwtConfig;
         UserService,
         LocalStrategy,
         JwtStrategy,
-        //LoginResolver,
+        LoginResolver,
     ],
     exports: [AuthService, UserService],
 })

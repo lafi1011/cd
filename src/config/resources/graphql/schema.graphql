@@ -22,16 +22,16 @@ schema {
 
 "Funktionen, um Bücherdaten zu lesen"
 type Query {
-  buecher(titel: String): [Buch!]
+  buecher(titel: String): [Cd!]
 
-  buch(id: ID!): Buch
+  cd(id: ID!): Cd
 }
 
 "Funktionen, um Bücher neu anzulegen, zu aktualisieren oder zu löschen"
 type Mutation {
-  create(input: BuchInput!): CreatePayload
+  create(input: CdInput!): CreatePayload
 
-  update(input: BuchUpdateInput!): UpdatePayload
+  update(input: CdUpdateInput!): UpdatePayload
 
   delete(id: ID!): Boolean
 
@@ -39,87 +39,70 @@ type Mutation {
   login(username: String!, password: String!): LoginResult
 }
 
-"Daten zum Titel eines Buches"
-type Titel {
+
+"Daten zum Titel eines Cdes"
+type Lied {
   titel: String!
-  untertitel: String
+  laenge: String
 }
 
-"Daten zum Titel eines Buches"
-type Abbildung {
-  beschriftung: String!
-  contentType: String
-}
-
-"Datenschema zu einem Buch, das gelesen wird"
-type Buch {
+"Datenschema zu einem Cd, das gelesen wird"
+type Cd {
   # ID ist bei Apollo ein String
   id: Int!
   version: Int!
-  isbn: String!
-  rating: Int
-  art: Art
+  isrc: String!
+  bewertung: Int
+  genre: Genre
   preis: Float!
-  lieferbar: Boolean
-  datum: String
-  homepage: String
-  schlagwoerter: [String]
-  # 1:1-Beziehung
-  titel: Titel!
-  # field mit @ResolveField
-  rabatt(short: Boolean): String!
+  verfuegbar: Boolean
+  erscheinungsdatum: String
+  interpret: String
+  titel: String
 }
 
-"Enum-Typ für die Art eines Buches"
-enum Art {
+"Enum-Typ für die Art eines Cdes"
+enum Genre {
   DRUCKAUSGABE
   KINDLE
+  TRAP
 }
 
-"Daten zum Titel eines neuen Buches"
-input TitelInput {
+"Daten zu den Liederm eines Cdes"
+input LiedInput {
   titel: String!
-  untertitel: String
+  laenge: String!
 }
 
-"Daten zu den Abbildungen eines Buches"
-input AbbildungInput {
-  beschriftung: String!
-  contentType: String!
-}
-
-"Daten für ein neues Buch"
-input BuchInput {
-  isbn: String
-  rating: Int
-  art: Art
+"Daten für ein neues Cd"
+input CdInput {
+  isrc: String
+  bewertung: Int
+  genre: Genre
   preis: Float
-  rabatt: Float
-  lieferbar: Boolean
-  datum: String
-  homepage: String
-  schlagwoerter: [String]
-  titel: TitelInput!
-  abbildungen: [AbbildungInput!]
+  verfuegbar: Boolean
+  erscheinungsdatum: String
+  interpret: String
+  titel: String
+  lieder: [LiedInput!]
 }
 
 type CreatePayload {
   id: Int
 }
 
-"Daten für ein zu änderndes Buch"
-input BuchUpdateInput {
+"Daten für ein zu änderndes Cd"
+input CdUpdateInput {
   id: ID
   version: Int
-  isbn: String
-  rating: Int
-  art: Art
+  isrc: String
+  bewertung: Int
+  genre: Genre
   preis: Float
-  rabatt: Float
-  lieferbar: Boolean
-  datum: String
-  homepage: String
-  schlagwoerter: [String]
+  verfuegbar: Boolean
+  erscheinungsdatum: String
+  interpret: String
+  titel: String
 }
 
 type UpdatePayload {
