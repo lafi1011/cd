@@ -74,7 +74,8 @@ describe('GET /rest', () => {
         const { cds } = data._embedded;
 
         cds.map((cd) => cd._links.self.href).forEach((selfLink) => {
-            expect(selfLink).toMatch(new RegExp(`${baseURL}`, 'u'));
+            // eslint-disable-next-line security/detect-non-literal-regexp, security-node/non-literal-reg-expr
+            expect(selfLink).toMatch(new RegExp(`^${baseURL}`, 'u'));
         });
     });
 

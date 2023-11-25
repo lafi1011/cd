@@ -72,7 +72,7 @@ describe('GraphQL Mutations', () => {
                         input: {
                             isrc: "978-0-321-19368-1",
                             bewertung: 1,
-                            genre: KINDLE,
+                            genre: TRAP,
                             preis: 99.99,
                             verfuegbar: true,
                             erscheinungsdatum: "2022-02-28",
