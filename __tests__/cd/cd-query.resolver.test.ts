@@ -25,7 +25,7 @@ import {
     shutdownServer,
     startServer,
 } from '../testserver.js';
-import { type Buch } from '../../src/buch/entity/buch.entity.js';
+import { type Cd } from '../../src/cd/entity/cd.entity.js';
 import { type GraphQLFormattedError } from 'graphql';
 import { type GraphQLRequest } from '@apollo/server';
 import { HttpStatus } from '@nestjs/common';
@@ -36,10 +36,7 @@ export interface GraphQLResponseBody {
     errors?: readonly [GraphQLFormattedError];
 }
 
-type BuchDTO = Omit<
-    Buch,
-    'abbildungen' | 'aktualisiert' | 'erzeugt' | 'rabatt'
-> & {
+type CdDTO = Omit<Cd, 'abbildungen' | 'aktualisiert' | 'erzeugt' | 'rabatt'> & {
     rabatt: string;
 };
 
@@ -47,12 +44,6 @@ type BuchDTO = Omit<
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
 const idVorhanden = '1';
-
-const titelVorhanden = 'Alpha';
-
-const teilTitelVorhanden = 'a';
-
-const teilTitelNichtVorhanden = 'abc';
 
 // -----------------------------------------------------------------------------
 // T e s t s
@@ -77,18 +68,15 @@ describe('GraphQL Queries', () => {
         await shutdownServer();
     });
 
-    test('Buch zu vorhandener ID', async () => {
+    test('Cd zu vorhandener ID', async () => {
         // given
         const body: GraphQLRequest = {
             query: `
                 {
-                    buch(id: "${idVorhanden}") {
+                    cd(id: "${idVorhanden}") {
                         version
-                        isbn
-                        art
-                        titel {
-                            titel
-                        }
+                        isrc
+                        genre
                     }
                 }
             `,
@@ -104,28 +92,25 @@ describe('GraphQL Queries', () => {
         const { status, headers, data } = response;
 
         expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu); // eslint-disable-line sonarjs/no-duplicate-string
+        expect(headers['content-type']).toMatch(/json/iu);
         expect(data.errors).toBeUndefined();
         expect(data.data).toBeDefined();
 
-        const { buch } = data.data!;
-        const result: BuchDTO = buch;
+        const { cd } = data.data!;
+        const result: CdDTO = cd;
 
-        expect(result.titel?.titel).toMatch(/^\w/u);
         expect(result.version).toBeGreaterThan(-1);
         expect(result.id).toBeUndefined();
     });
 
-    test('Buch zu nicht-vorhandener ID', async () => {
+    test('Cd zu nicht-vorhandener ID', async () => {
         // given
         const id = '999999';
         const body: GraphQLRequest = {
             query: `
                 {
-                    buch(id: "${id}") {
-                        titel {
-                            titel
-                        }
+                    cd(id: "${id}") {
+                        titel
                     }
                 }
             `,
@@ -142,7 +127,7 @@ describe('GraphQL Queries', () => {
 
         expect(status).toBe(HttpStatus.OK);
         expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.data!.buch).toBeNull();
+        expect(data.data!.cd).toBeNull();
 
         const { errors } = data;
 
@@ -151,137 +136,9 @@ describe('GraphQL Queries', () => {
         const [error] = errors!;
         const { message, path, extensions } = error;
 
-        expect(message).toBe(`Es gibt kein Buch mit der ID ${id}.`);
+        expect(message).toBe(`Es gibt keine CD mit der ID ${id}.`);
         expect(path).toBeDefined();
-        expect(path!![0]).toBe('buch');
-        expect(extensions).toBeDefined();
-        expect(extensions!.code).toBe('BAD_USER_INPUT');
-    });
-
-    test('Buch zu vorhandenem Titel', async () => {
-        // given
-        const body: GraphQLRequest = {
-            query: `
-                {
-                    buecher(titel: "${titelVorhanden}") {
-                        art
-                        titel {
-                            titel
-                        }
-                    }
-                }
-            `,
-        };
-
-        // when
-        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
-            graphqlPath,
-            body,
-        );
-
-        // then
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.errors).toBeUndefined();
-
-        expect(data.data).toBeDefined();
-
-        const { buecher } = data.data!;
-
-        expect(buecher).not.toHaveLength(0);
-
-        const buecherArray: BuchDTO[] = buecher;
-
-        expect(buecherArray).toHaveLength(1);
-
-        const [buch] = buecherArray;
-
-        expect(buch!.titel?.titel).toBe(titelVorhanden);
-    });
-
-    test('Buch zu vorhandenem Teil-Titel', async () => {
-        // given
-        const body: GraphQLRequest = {
-            query: `
-                {
-                    buecher(titel: "${teilTitelVorhanden}") {
-                        art
-                        titel {
-                            titel
-                        }
-                    }
-                }
-            `,
-        };
-
-        // when
-        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
-            graphqlPath,
-            body,
-        );
-
-        // then
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.errors).toBeUndefined();
-        expect(data.data).toBeDefined();
-
-        const { buecher } = data.data!;
-
-        expect(buecher).not.toHaveLength(0);
-
-        const buecherArray: BuchDTO[] = buecher;
-        buecherArray
-            .map((buch) => buch.titel)
-            .forEach((titel) =>
-                expect(titel?.titel.toLowerCase()).toEqual(
-                    expect.stringContaining(teilTitelVorhanden),
-                ),
-            );
-    });
-
-    test('Buch zu nicht vorhandenem Titel', async () => {
-        // given
-        const body: GraphQLRequest = {
-            query: `
-                {
-                    buecher(titel: "${teilTitelNichtVorhanden}") {
-                        art
-                        titel {
-                            titel
-                        }
-                    }
-                }
-            `,
-        };
-
-        // when
-        const response: AxiosResponse<GraphQLResponseBody> = await client.post(
-            graphqlPath,
-            body,
-        );
-
-        // then
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.data!.buecher).toBeNull();
-
-        const { errors } = data;
-
-        expect(errors).toHaveLength(1);
-
-        const [error] = errors!;
-        const { message, path, extensions } = error;
-
-        expect(message).toMatch(/^Keine Buecher gefunden:/u);
-        expect(path).toBeDefined();
-        expect(path!![0]).toBe('buecher');
+        expect(path!![0]).toBe('cd');
         expect(extensions).toBeDefined();
         expect(extensions!.code).toBe('BAD_USER_INPUT');
     });

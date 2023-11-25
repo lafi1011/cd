@@ -42,7 +42,7 @@ import {
     shutdownServer,
     startServer,
 } from '../testserver.js';
-import { type BuchModel } from '../../src/buch/rest/buch-get.controller.js';
+import { type CdModel } from '../../src/cd/rest/cd-get.controller.js';
 import { type ErrorResponse } from './error-response.js';
 import { HttpStatus } from '@nestjs/common';
 
@@ -81,7 +81,7 @@ describe('GET /rest/:id', () => {
         const url = `/${idVorhanden}`;
 
         // when
-        const response: AxiosResponse<BuchModel> = await client.get(url);
+        const response: AxiosResponse<CdModel> = await client.get(url);
 
         // then
         const { status, headers, data } = response;
@@ -96,7 +96,7 @@ describe('GET /rest/:id', () => {
         expect(selfLink).toMatch(new RegExp(`${url}$`, 'u'));
     });
 
-    test('Kein Buch zu nicht-vorhandener ID', async () => {
+    test('Kein Cd zu nicht-vorhandener ID', async () => {
         // given
         const url = `/${idNichtVorhanden}`;
 
@@ -115,7 +115,7 @@ describe('GET /rest/:id', () => {
         expect(statusCode).toBe(HttpStatus.NOT_FOUND);
     });
 
-    test('Buch zu vorhandener ID mit ETag', async () => {
+    test('Cd zu vorhandener ID mit ETag', async () => {
         // given
         const url = `/${idVorhandenETag}`;
 

@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { HttpException, HttpStatus } from '@nestjs/common';
 
 /**

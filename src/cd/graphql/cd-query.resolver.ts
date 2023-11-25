@@ -55,15 +55,15 @@ export class CdQueryResolver {
         return cd;
     }
 
-    @Query('buecher')
+    @Query('cds')
     async find(@Args() titel: { titel: string } | undefined) {
         const titelStr = titel?.titel;
         this.#logger.debug('find: Suchkriterium titel=%s', titelStr);
         const suchkriterium = titelStr === undefined ? {} : { titel: titelStr };
 
-        const buecher = await this.#service.find(suchkriterium);
+        const cds = await this.#service.find(suchkriterium);
 
-        this.#logger.debug('find: buecher=%o', buecher);
-        return buecher;
+        this.#logger.debug('find: cds=%o', cds);
+        return cds;
     }
 }

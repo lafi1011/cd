@@ -22,7 +22,7 @@ schema {
 
 "Funktionen, um Bücherdaten zu lesen"
 type Query {
-  buecher(titel: String): [Cd!]
+  cds(titel: String): [Cd!]
 
   cd(id: ID!): Cd
 }

@@ -61,8 +61,7 @@ export class CdReadService {
             .buildId({ id, mitLiedern })
             .getOne();
         if (cd === null) {
-            throw new NotFoundException(`Es gibt keine CD mit der ID ${id}. 
-            ${cd}`);
+            throw new NotFoundException(`Es gibt keine CD mit der ID ${id}.`);
         }
 
         if (this.#logger.isLevelEnabled('debug')) {

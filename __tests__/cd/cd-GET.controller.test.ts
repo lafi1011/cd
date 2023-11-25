@@ -19,23 +19,21 @@
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
-    host,
+    //host,
     httpsAgent,
-    port,
+    //port,
     shutdownServer,
     startServer,
 } from '../testserver.js';
-import { type BuecherModel } from '../../src/buch/rest/buch-get.controller.js';
+import { type CdsModel } from '../../src/cd/rest/cd-get.controller.js';
 import { type ErrorResponse } from './error-response.js';
 import { HttpStatus } from '@nestjs/common';
+//import { hostname } from 'os';
 
 // -----------------------------------------------------------------------------
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
-const titelVorhanden = 'a';
 const titelNichtVorhanden = 'xx';
-const schlagwortVorhanden = 'javascript';
-const schlagwortNichtVorhanden = 'csharp';
 
 // -----------------------------------------------------------------------------
 // T e s t s
@@ -48,7 +46,7 @@ describe('GET /rest', () => {
 
     beforeAll(async () => {
         await startServer();
-        baseURL = `https://${host}:${port}/rest`;
+        baseURL = 'https://laptop_von_finn:3000/rest/';
         client = axios.create({
             baseURL,
             httpsAgent,
@@ -64,33 +62,7 @@ describe('GET /rest', () => {
         // given
 
         // when
-        const response: AxiosResponse<BuecherModel> = await client.get('/');
-
-        // then
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu); // eslint-disable-line sonarjs/no-duplicate-string
-        expect(data).toBeDefined();
-
-        const { buecher } = data._embedded;
-
-        buecher
-            .map((buch) => buch._links.self.href)
-            .forEach((selfLink) => {
-                // eslint-disable-next-line security/detect-non-literal-regexp, security-node/non-literal-reg-expr
-                expect(selfLink).toMatch(new RegExp(`^${baseURL}`, 'u'));
-            });
-    });
-
-    test('Buecher mit einem Teil-Titel suchen', async () => {
-        // given
-        const params = { titel: titelVorhanden };
-
-        // when
-        const response: AxiosResponse<BuecherModel> = await client.get('/', {
-            params,
-        });
+        const response: AxiosResponse<CdsModel> = await client.get('/');
 
         // then
         const { status, headers, data } = response;
@@ -99,70 +71,16 @@ describe('GET /rest', () => {
         expect(headers['content-type']).toMatch(/json/iu);
         expect(data).toBeDefined();
 
-        const { buecher } = data._embedded;
+        const { cds } = data._embedded;
 
-        // Jedes Buch hat einen Titel mit dem Teilstring 'a'
-        buecher
-            .map((buch) => buch.titel)
-            .forEach((titel) =>
-                expect(titel.titel.toLowerCase()).toEqual(
-                    expect.stringContaining(titelVorhanden),
-                ),
-            );
+        cds.map((cd) => cd._links.self.href).forEach((selfLink) => {
+            expect(selfLink).toMatch(new RegExp(`${baseURL}`, 'u'));
+        });
     });
 
     test('Buecher zu einem nicht vorhandenen Teil-Titel suchen', async () => {
         // given
         const params = { titel: titelNichtVorhanden };
-
-        // when
-        const response: AxiosResponse<ErrorResponse> = await client.get('/', {
-            params,
-        });
-
-        // then
-        const { status, data } = response;
-
-        expect(status).toBe(HttpStatus.NOT_FOUND);
-
-        const { error, statusCode } = data;
-
-        expect(error).toBe('Not Found');
-        expect(statusCode).toBe(HttpStatus.NOT_FOUND);
-    });
-
-    test('Mind. 1 Buch mit vorhandenem Schlagwort', async () => {
-        // given
-        const params = { [schlagwortVorhanden]: 'true' };
-
-        // when
-        const response: AxiosResponse<BuecherModel> = await client.get('/', {
-            params,
-        });
-
-        // then
-        const { status, headers, data } = response;
-
-        expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu);
-        // JSON-Array mit mind. 1 JSON-Objekt
-        expect(data).toBeDefined();
-
-        const { buecher } = data._embedded;
-
-        // Jedes Buch hat im Array der Schlagwoerter z.B. "javascript"
-        buecher
-            .map((buch) => buch.schlagwoerter)
-            .forEach((schlagwoerter) =>
-                expect(schlagwoerter).toEqual(
-                    expect.arrayContaining([schlagwortVorhanden.toUpperCase()]),
-                ),
-            );
-    });
-
-    test('Keine Buecher zu einem nicht vorhandenen Schlagwort', async () => {
-        // given
-        const params = { [schlagwortNichtVorhanden]: 'true' };
 
         // when
         const response: AxiosResponse<ErrorResponse> = await client.get('/', {

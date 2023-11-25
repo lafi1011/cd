@@ -48,12 +48,6 @@ export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(RequestLoggerMiddleware)
-            // eslint-disable-next-line prettier/prettier
-            .forRoutes(
-                CdGetController,
-                CdWriteController,
-                'auth',
-                'graphql',
-            );
+            .forRoutes(CdGetController, CdWriteController, 'auth', 'graphql');
     }
 }

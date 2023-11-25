@@ -34,52 +34,41 @@ import { loginRest } from '../login.js';
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
 const neuesCd: CdDTO = {
-    isbn: '978-0-007-00644-1',
-    rating: 1,
-    art: 'TRAP',
+    isrc: '978-0-007-00644-1',
+    bewertung: 1,
+    genre: 'TRAP',
     preis: 99.99,
-    rabatt: 0.123,
-    lieferbar: true,
-    datum: '2022-02-28',
-    homepage: 'https://post.rest',
-    schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
-    titel: {
-        titel: 'Titelpost',
-        untertitel: 'untertitelpos',
-    },
-    abbildungen: [
+    verfuegbar: true,
+    erscheinungsdatum: '2022-02-28',
+    interpret: 'interpret',
+    titel: 'titel',
+    lieder: [
         {
-            beschriftung: 'Abb. 1',
-            contentType: 'img/png',
+            titel: 'Abb. 1',
+            laenge: '360',
         },
     ],
 };
 const neuesCdInvalid: Record<string, unknown> = {
-    isbn: 'falsche-ISBN',
-    rating: -1,
-    art: 'UNSICHTBAR',
+    isrc: 'falsche-ISBN',
+    bewertung: -1,
+    genre: 'UNSICHTBAR',
     preis: -1,
-    rabatt: 2,
-    lieferbar: true,
-    datum: '12345-123-123',
-    homepage: 'anyHomepage',
-    titel: {
-        titel: '?!',
-        untertitel: 'Untertitelinvalid',
-    },
+    verfuegbar: true,
+    erscheinungsdatum: '12345-123-123',
+    interpret: 'https://post.rest',
+    titel: 'https://post.rest',
 };
 const neuesCdIsbnExistiert: CdDTO = {
     isrc: '978-3-897-22583-1',
-    rating: 1,
-    art: 'TRAP',
+    bewertung: 1,
+    genre: 'TRAP',
     preis: 99.99,
-    rabatt: 0.099,
-    lieferbar: true,
-    datum: '2022-02-28',
-    homepage: 'https://post.isbn/',
-    schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
+    verfuegbar: true,
+    erscheinungsdatum: '2022-02-28',
+    interpret: 'interpret',
     titel: 'Titel',
-    abbildungen: undefined,
+    lieder: undefined,
 };
 
 // -----------------------------------------------------------------------------
@@ -147,14 +136,11 @@ describe('POST /rest', () => {
         const token = await loginRest(client);
         headers.Authorization = `Bearer ${token}`;
         const expectedMsg = [
-            expect.stringMatching(/^isbn /u),
-            expect.stringMatching(/^rating /u),
-            expect.stringMatching(/^art /u),
+            expect.stringMatching(/^isrc /u),
+            expect.stringMatching(/^bewertung /u),
+            expect.stringMatching(/^genre /u),
             expect.stringMatching(/^preis /u),
-            expect.stringMatching(/^rabatt /u),
-            expect.stringMatching(/^datum /u),
-            expect.stringMatching(/^homepage /u),
-            expect.stringMatching(/^titel.titel /u),
+            expect.stringMatching(/^erscheinungsdatum /u),
         ];
 
         // when
@@ -194,7 +180,7 @@ describe('POST /rest', () => {
 
         const { message, statusCode } = data;
 
-        expect(message).toEqual(expect.stringContaining('ISBN'));
+        expect(message).toEqual(expect.stringContaining('ISRC'));
         expect(statusCode).toBe(HttpStatus.UNPROCESSABLE_ENTITY);
     });
 
