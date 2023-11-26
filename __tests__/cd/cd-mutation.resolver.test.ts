@@ -101,6 +101,7 @@ describe('GraphQL Mutations', () => {
         const { status, headers, data } = response;
 
         expect(status).toBe(HttpStatus.OK);
+        // eslint-disable-next-line sonarjs/no-duplicate-string
         expect(headers['content-type']).toMatch(/json/iu);
         expect(data.data).toBeDefined();
 
@@ -179,7 +180,6 @@ describe('GraphQL Mutations', () => {
     });
 
     // -------------------------------------------------------------------------
-    /*
     test('Neues Buch nur als "admin"/"fachabteilung"', async () => {
         // given
         const token = await loginGraphQL(client, 'adriana.alpha', 'p');
@@ -191,16 +191,12 @@ describe('GraphQL Mutations', () => {
                         input: {
                             isrc: "978-3-663-08746-5",
                             bewertung: 1,
-                            genre: KINDLE,
+                            genre: TRAP,
                             preis: 99.99,
                             verfuegbar: true,
                             erscheinungsdatum: "2022-02-28",
                             interpret: "https://create.mutation",
-                            titel: "https://create.mutation",
-                            lieder: [{
-                                titel: "Abb. 1",
-                                laenge: "laenge"
-                            }]
+                            titel: "titel",
                     ) {
                         id
                     }
@@ -232,5 +228,4 @@ describe('GraphQL Mutations', () => {
         expect(extensions).toBeDefined();
         expect(extensions!.code).toBe('BAD_USER_INPUT');
     });
-    */
 });

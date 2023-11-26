@@ -46,46 +46,46 @@ package security.auth {
   Roles .right.> Role
 }
 
-package buch #DDDDDD {
+package cd #DDDDDD {
   package entity #FFFFFF {
-    class Buch <<entity>>
+    class Cd <<entity>>
   }
 
   package service #FFFFFF {
-    class BuchWriteService << control >>
+    class CdWriteService << control >>
   }
 
-  class "type BuchDTO = Omit<Buch, 'abbildungen' | 'aktualisiert' | 'erzeugt'" as BuchDTO
-  hide BuchDTO circle
+  class "type CdDTO = Omit<Cd, 'lieder' | 'aktualisiert' | 'erzeugt'" as CdDTO
+  hide CdDTO circle
 
     interface IdInput {
         id: number
     }
 
-  class BuchMutationResolver << control >> << @Resolver() >> << @UseGuards() >> << @UseInterceptors() >> {
-    + @Mutation() @Roles() async create(@Args() buchDTO: BuchDTO): Promise<number>
-    + @Mutation() @Roles() async update(@Args() buchDTO: BuchDTO): Promise<number>
+  class CdMutationResolver << control >> << @Resolver() >> << @UseGuards() >> << @UseInterceptors() >> {
+    + @Mutation() @Roles() async create(@Args() cdDTO: CdDTO): Promise<number>
+    + @Mutation() @Roles() async update(@Args() cdDTO: CdDTO): Promise<number>
     + @Mutation() @Roles() async delete(@Args() id: IdInput): Promise<boolean>
   }
 
-  BuchMutationResolver o-down-> "1" BuchWriteService : service
+  CdMutationResolver o-down-> "1" CdWriteService : service
 
-  BuchMutationResolver ..> Buch
-  BuchMutationResolver ..> BuchDTO
-  BuchMutationResolver ..> IdInput
-  BuchDTO .up.> Buch
-  BuchMutationResolver ..> Promise
-  BuchMutationResolver ..> Resolver
+  CdMutationResolver ..> Cd
+  CdMutationResolver ..> CdDTO
+  CdMutationResolver ..> IdInput
+  CdDTO .up.> Cd
+  CdMutationResolver ..> Promise
+  CdMutationResolver ..> Resolver
 
-  BuchMutationResolver .up.> Roles
-  BuchMutationResolver .up.> Role
+  CdMutationResolver .up.> Roles
+  CdMutationResolver .up.> Role
 
-  BuchDTO .[hidden].> Promise
-  BuchDTO .[hidden].> Resolver
+  CdDTO .[hidden].> Promise
+  CdDTO .[hidden].> Resolver
 }
 
 hide empty members
 
-footer (c) Juergen Zimmermann
+footer (c) Finn Lamberti
 
 @enduml

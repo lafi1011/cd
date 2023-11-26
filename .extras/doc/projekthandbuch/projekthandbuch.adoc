@@ -16,7 +16,7 @@
 // Preview durch <Strg><Shift>v
 
 = Projekthandbuch
-Jürgen Zimmermann <Juergen.Zimmermann@h-ka.de>
+Finn Lamberti <lafi1011@h-ka.de>
 :doctype: book
 :toc: left
 :sectanchors:
@@ -66,10 +66,10 @@ ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
 cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit
 amet ligula.
 
-."BuchGetController" für Lesezugriffe an der REST-Schnittstelle
-[plantuml,BuchGetController,svg]
+."CdGetController" für Lesezugriffe an der REST-Schnittstelle
+[plantuml,CdGetController,svg]
 ----
-include::BuchGetController.plantuml[]
+include::CdGetController.plantuml[]
 ----
 
 Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
@@ -84,48 +84,48 @@ include::sequenzdiagramm.plantuml[]
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
 tempor invidunt ut.
 
-."BuchWriteController" für Schreibzugriffe an der REST-Schnittstelle
-[plantuml,BuchGetController,svg]
+."CdWriteController" für Schreibzugriffe an der REST-Schnittstelle
+[plantuml,CdGetController,svg]
 ----
-include::BuchWriteController.plantuml[]
+include::CdWriteController.plantuml[]
 ----
 
 === Die GraphQL-Schnittstelle
 
 Donec sollicitudin molestie malesuada. Donec rutrum congue leo eget malesuada.
 
-.BuchQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
-[plantuml,BuchQueryResolver,svg]
+.CdQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
+[plantuml,CdQueryResolver,svg]
 ----
-include::BuchQueryResolver.plantuml[]
+include::CdQueryResolver.plantuml[]
 ----
 
 Donec sollicitudin molestie malesuada. Praesent sapien massa, convallis a
 pellentesque nec, egestas non nisi.
 
-.BuchMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
-[plantuml,BuchMutationResolver,svg]
+.CdMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
+[plantuml,CdMutationResolver,svg]
 ----
-include::BuchMutationResolver.plantuml[]
+include::CdMutationResolver.plantuml[]
 ----
 
 === Die Geschäftslogik
 
 Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada.
 
-."BuchReadService" von der Geschäftslogik
-[plantuml,BuchReadService,svg]
+."CdReadService" von der Geschäftslogik
+[plantuml,CdReadService,svg]
 ----
-include::BuchReadService.plantuml[]
+include::CdReadService.plantuml[]
 ----
 
 Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget
 malesuada.
 
-."BuchWriteService" von der Geschäftslogik
-[plantuml,BuchWriteService,svg]
+."CdWriteService" von der Geschäftslogik
+[plantuml,CdWriteService,svg]
 ----
-include::BuchWriteService.plantuml[]
+include::CdWriteService.plantuml[]
 ----
 
 === Klasse für Entities
@@ -134,9 +134,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat,
 accumsan id imperdiet et, porttitor at sem.
 
 .Entity
-[plantuml,Buch,svg]
+[plantuml,Cd,svg]
 ----
-include::Buch.plantuml[]
+include::Cd.plantuml[]
 ----
 
 === ER-Diagramm

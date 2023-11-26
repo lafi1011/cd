@@ -36,47 +36,39 @@ package typeorm {
   hide UpdateDateColumn circle
 }
 
-package buch.entity {
-  class "type BuchArt = 'KINDLE' | 'DRUCKAUSGABE'" as BuchArt
-  hide BuchArt circle
+package cd.entity {
+  class "type Cdgenre = 'TRAP' | 'HIP HOP'" as CdArt
+  hide CdArt circle
 
-  class Buch <<entity>> <<@Entity>> {
+  class Cd <<entity>> <<@Entity>> {
     @Column() @PrimaryColumn() readonly id: number
     @Column() readonly version: number
-    @Column() readonly isbn: string
-    @Column() readonly rating: number
-    @Column() readonly art: BuchArt
+    @Column() readonly isrc: string
+    @Column() readonly bewertung: number
+    @Column() readonly genre: CdArt
     @Column() readonly preis: number
-    @Column() readonly rabatt: number
-    @Column() readonly lieferbar: boolean
-    @Column() readonly datum: Date
-    @Column() readonly homepage?: string
-    @Column() readonly schlagwoerter?: string
+    @Column() readonly verfuegbar: boolean
+    @Column() readonly erscheinungsdatum: Date
+    @Column() readonly interpret?: string
+    @Column() readonly titel?: string
     @CreateDateColumn() readonly erzeugt: Date
     @UpdateDateColumn() readonly aktualisiert: Date
   }
 
-  class Titel <<entity>> <<@Entity>> {
+  class Lied <<entity>> <<@Entity>> {
     @Column() @PrimaryColumn() readonly id: number
     @Column() readonly titel: string
-    @Column() readonly untertitel?: string
+    @Column() readonly laenge: string
   }
 
-  class Abbildung <<entity>> <<@Entity>> {
-    @Column() @PrimaryColumn() readonly id: number
-    @Column() readonly beschriftung: string
-    @Column() readonly contentType?: string
-  }
+  Cd *--> "*" Lied : @OneToMany() \nlieder
 
-  Buch *--> "1" Titel : @OneToOne() \ntitel
-  Buch *--> "*" Abbildung : @OneToMany() \nabbildungen
-
-  Buch .right.> Entity
-  Buch .right.> BuchArt
+  Cd .right.> Entity
+  Cd .right.> CdArt
 }
 
 hide empty members
 
-footer (c) Jürgen Zimmermann
+footer (c) Finn Lamberti
 
 @enduml
