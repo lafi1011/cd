@@ -13,7 +13,6 @@ import {
     VersionColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-//import { Cd } from './cd.entity';
 import { DecimalTransformer } from './decimal-transformer.js';
 import { Lied } from './lied.entity.js';
 import { dbType } from '../../config/dbtype.js';
@@ -26,11 +25,9 @@ export type CDGenre = 'HIP HOP' | 'TRAP' | 'Rock';
 /**
  * Entity-Klasse zu einem relationalen Tabelle
  */
-// https://typeorm.io/entities
 @Entity()
 export class Cd {
     @Column('int')
-    // https://typeorm.io/entities#primary-columns
     // CAVEAT: zuerst @Column() und erst dann @PrimaryGeneratedColumn()
     // default: strategy = 'increment' (SEQUENCE, GENERATED ALWAYS AS IDENTITY, AUTO_INCREMENT)
     @PrimaryGeneratedColumn()
@@ -57,24 +54,20 @@ export class Cd {
         transformer: new DecimalTransformer(),
     })
     @ApiProperty({ example: 1, type: Number })
-    // statt number ggf. Decimal aus decimal.js analog zu BigDecimal von Java
     readonly preis!: number;
 
     @Column('boolean')
     @ApiProperty({ example: true, type: Boolean })
     readonly verfuegbar: boolean | undefined;
 
-    // das Temporal-API ab ES2022 wird von TypeORM noch nicht unterstuetzt
     @Column('date')
     @ApiProperty({ example: '2021-01-31' })
     readonly erscheinungsdatum: Date | string | undefined;
 
-    //undefined wegen updates
     @Column('varchar', { length: 40 })
     @ApiProperty({ example: 'Ken Carson', type: String })
     readonly interpret: string | undefined;
 
-    //undefined wegen updates
     @Column('varchar', { length: 40 })
     @ApiProperty({ example: 'Ken Carson', type: String })
     readonly titel: string | undefined;
@@ -85,23 +78,14 @@ export class Cd {
     })
     readonly lieder: Lied[] | undefined;
 
-    // https://typeorm.io/entities#special-columns
-    // https://typeorm.io/entities#column-types-for-postgres
-    // https://typeorm.io/entities#column-types-for-mysql--mariadb
-    // https://typeorm.io/entities#column-types-for-sqlite--cordova--react-native--expo
-    // 'better-sqlite3' erfordert Python zum Uebersetzen, wenn das Docker-Image gebaut wird
     @CreateDateColumn({
         type: dbType === 'sqlite' ? 'datetime' : 'timestamp',
     })
-    // SQLite:
-    // @CreateDateColumn({ type: 'datetime' })
     readonly erzeugt: Date | undefined;
 
     @UpdateDateColumn({
         type: dbType === 'sqlite' ? 'datetime' : 'timestamp',
     })
-    // SQLite:
-    // @UpdateDateColumn({ type: 'datetime' })
     readonly aktualisiert: Date | undefined;
 
     public toString = (): string =>

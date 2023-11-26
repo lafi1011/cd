@@ -29,10 +29,11 @@
 
 db:
   #type: postgres
-  #type: mysql
+  type: mysql
   #type: sqlite
 
   #host: localhost
+  #host: mysql
 
   #username: buch
   #password: p

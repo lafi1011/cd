@@ -28,7 +28,6 @@ export const MAX_RATING = 5;
  * Entity-Klasse für Bücher ohne TypeORM und ohne Referenzen.
  */
 export class CdDtoOhneRef {
-    // https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s13.html
     @IsISBN(13)
     @ApiProperty({ example: '978-0-007-00644-1', type: String })
     readonly isrc!: string;
@@ -46,7 +45,6 @@ export class CdDtoOhneRef {
 
     @IsPositive()
     @ApiProperty({ example: 1, type: Number })
-    // statt number ggf. Decimal aus decimal.js analog zu BigDecimal von Java
     readonly preis!: number;
 
     @IsBoolean()
@@ -77,7 +75,5 @@ export class CdDTO extends CdDtoOhneRef {
     @Type(() => LiedDTO)
     @ApiProperty({ type: [LiedDTO] })
     readonly lieder: LiedDTO[] | undefined;
-
-    // LiedDTO
 }
 /* eslint-enable max-classes-per-file, @typescript-eslint/no-magic-numbers */

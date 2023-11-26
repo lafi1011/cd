@@ -120,16 +120,7 @@ export class CdGetController {
     }
 
     /**
-     * Eine Cd wird mit ihrer ID als Pfadparameter gesucht. Die Suche wird
-     * dabei asynchron ausgeführt.
-     * Wenn es die gesuchte Cd gibt und im Request-Header `If-None-Match` im
-     * Request-Header auf die aktuelle Version der Cd gesetzt ist, wir der
-     * Statuscode 304 zurückgeschickt.
-     * Sofern `If-None-Match` nicht gesetzt ist oder eine veraltete Version
-     * enthält, wird die gefundene Cd im Rumpf des Response als JSON-Datensatz
-     * mit Atom-Links für HATEOAS und dem Statuscode `200` (`OK`) zurückgeliefert.
-     * Wenn keine Cd zu der ID gefundenen wird bzw. existiert, dann wird der
-     * Statuscode 404 zurückgeschickt.
+     * Eine Cd wird mit ihrer ID als Pfadparameter asynchron gesucht.
      *
      * @param id Pfad-Parameter `id`
      * @param req Request-Objekt von Express mit Pfadparameter, Query-String,
@@ -196,14 +187,7 @@ export class CdGetController {
     }
 
     /**
-     * Cds werden mit Suchkriterien gesucht. Die Suche wird dabei asynchron
-     * ausgeführt.
-     * Wenn mindestens eine Cd gefunden wird, wird der Statuscode 200 verwendet.
-     * Im Body des Response-Objektes sind alle gefundenen Cds aufgelistet.
-     * Sofern keine Suchkriterien eingegeben werden, werden alle vorhandenen
-     * Bücher zurückgegeben.
-     * Wenn keine Cd mit den Suchkriterien gefunden wird, dann wird der
-     * Statuscode 404 verwendet.
+     * Cds werden mit Suchkriterien asynchron gesucht.
      *
      * @param query Query-Parameter von Express.
      * @param req Request-Objekt von Express.

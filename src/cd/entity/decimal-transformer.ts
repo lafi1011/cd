@@ -5,10 +5,6 @@
 
 import { type ValueTransformer } from 'typeorm';
 
-// https://github.com/typeorm/typeorm/issues/873#issuecomment-328945433
-// "grosse" Zahlen als String und nicht number (Stichwort: Rundungsfehler)
-// statt number ggf. Decimal aus decimal.js analog zu BigDecimal von Java
-// https://medium.com/@matthew.bajorek/how-to-properly-handle-decimals-with-typeorm-f0eb2b79ca9c
 export class DecimalTransformer implements ValueTransformer {
     /**
      * Transformation beim Schreiben in die DB

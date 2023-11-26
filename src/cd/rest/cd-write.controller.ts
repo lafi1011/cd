@@ -45,7 +45,7 @@ import { paths } from '../../config/paths.js';
 
 const MSG_FORBIDDEN = 'Kein Token mit ausreichender Berechtigung vorhanden';
 /**
- * Die Controller-Klasse für die Verwaltung von Bücher.
+ * Die Controller-Klasse für die Verwaltung von Cds.
  */
 @Controller(paths.rest)
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -62,23 +62,14 @@ export class CdWriteController {
     }
 
     /**
-     * Ein neues Cd wird asynchron angelegt. Das neu anzulegende Cd ist als
-     * JSON-Datensatz im Request-Objekt enthalten. Wenn es keine
-     * Verletzungen von Constraints gibt, wird der Statuscode `201` (`Created`)
-     * gesetzt und im Response-Header wird `Location` auf die URI so gesetzt,
-     * dass damit das neu angelegte Cd abgerufen werden kann.
-     *
-     * Falls Constraints verletzt sind, wird der Statuscode `400` (`Bad Request`)
-     * gesetzt und genauso auch wenn der Titel oder die ISBN-Nummer bereits
-     * existieren.
-     *
+     * Eine neue Cd wird asynchron angelegt.
      * @param cd JSON-Daten für ein Cd im Request-Body.
      * @param res Leeres Response-Objekt von Express.
      * @returns Leeres Promise-Objekt.
      */
     @Post()
     @RolesAllowed('admin', 'fachabteilung')
-    @ApiOperation({ summary: 'Ein neues Cd anlegen' })
+    @ApiOperation({ summary: 'Eine neue Cd anlegen' })
     @ApiCreatedResponse({ description: 'Erfolgreich neu angelegt' })
     @ApiBadRequestResponse({ description: 'Fehlerhafte Cddaten' })
     @ApiForbiddenResponse({ description: MSG_FORBIDDEN })
@@ -99,22 +90,6 @@ export class CdWriteController {
 
     /**
      * Eine vorhanden Cd wird asynchron aktualisiert.
-     *
-     * Im Request-Objekt von Express muss die ID des zu aktualisierenden Cdes
-     * als Pfad-Parameter enthalten sein. Außerdem muss im Rumpf das zu
-     * aktualisierende Cd als JSON-Datensatz enthalten sein. Damit die
-     * Aktualisierung überhaupt durchgeführt werden kann, muss im Header
-     * `If-Match` auf die korrekte Version für optimistische Synchronisation
-     * gesetzt sein.
-     *
-     * Bei erfolgreicher Aktualisierung wird der Statuscode `204` (`No Content`)
-     * gesetzt und im Header auch `ETag` mit der neuen Version mitgeliefert.
-     *
-     * Falls die Versionsnummer fehlt, wird der Statuscode `428` (`Precondition
-     * required`) gesetzt; und falls sie nicht korrekt ist, der Statuscode `412`
-     * (`Precondition failed`). Falls Constraints verletzt sind, wird der
-     * Statuscode `400` (`Bad Request`) gesetzt und genauso auch wenn der neue
-     * Titel oder die neue ISBN-Nummer bereits existieren.
      *
      * @param cd Cddaten im Body des Request-Objekts.
      * @param id Pfad-Paramater für die ID.
@@ -175,7 +150,7 @@ export class CdWriteController {
 
     /**
      * Ein Cd wird anhand seiner ID-gelöscht, die als Pfad-Parameter angegeben
-     * ist. Der zurückgelieferte Statuscode ist `204` (`No Content`).
+     * ist.
      *
      * @param id Pfad-Paramater für die ID.
      * @param res Leeres Response-Objekt von Express.

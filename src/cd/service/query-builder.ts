@@ -68,16 +68,7 @@ export class QueryBuilder {
         let queryBuilder = this.#repo.createQueryBuilder(this.#cdAlias);
         //queryBuilder.innerJoinAndSelect(`${this.#cdAlias}.titel`, 'titel');
 
-        // z.B. { titel: 'a', rating: 5, javascript: true }
-        // "rest properties" fuer anfaengliche WHERE-Klausel: ab ES 2018 https://github.com/tc39/proposal-object-rest-spread
-        // type-coverage:ignore-next-line
-        // const { titel, javascript, typescript, ...props } = suchkriterien;
-
         let useWhere = true;
-
-        // Titel in der Query: Teilstring des Titels und "case insensitive"
-        // CAVEAT: MySQL hat keinen Vergleich mit "case insensitive"
-        // type-coverage:ignore-next-line
         if (titel !== undefined && typeof titel === 'string') {
             const ilike =
                 typeOrmModuleOptions.type === 'postgres' ? 'ilike' : 'like';

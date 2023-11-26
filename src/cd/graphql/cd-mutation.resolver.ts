@@ -14,16 +14,6 @@ import { RolesAllowed } from '../../security/auth/roles/roles-allowed.decorator.
 import { RolesGraphQlGuard } from '../../security/auth/roles/roles-graphql.guard.js';
 import { getLogger } from '../../logger/logger.js';
 
-// Authentifizierung und Autorisierung durch
-//  GraphQL Shield
-//      https://www.graphql-shield.com
-//      https://github.com/maticzav/graphql-shield
-//      https://github.com/nestjs/graphql/issues/92
-//      https://github.com/maticzav/graphql-shield/issues/213
-//  GraphQL AuthZ
-//      https://github.com/AstrumU/graphql-authz
-//      https://www.the-guild.dev/blog/graphql-authz
-
 export interface CreatePayload {
     readonly id: number;
 }
@@ -41,7 +31,6 @@ export class CdUpdateDTO extends CdDTO {
     readonly version!: number;
 }
 @Resolver()
-// alternativ: globale Aktivierung der Guards https://docs.nestjs.com/security/authorization#basic-rbac-implementation
 @UseGuards(JwtAuthGraphQlGuard, RolesGraphQlGuard)
 @UseFilters(HttpExceptionFilter)
 @UseInterceptors(ResponseTimeInterceptor)
@@ -143,32 +132,4 @@ export class CdMutationResolver {
             aktualisiert: undefined,
         };
     }
-
-    // #errorMsgCreateCd(err: CreateError) {
-    //     switch (err.type) {
-    //         case 'IsbnExists': {
-    //             return `Die ISBN ${err.isbn} existiert bereits`;
-    //         }
-    //         default: {
-    //             return 'Unbekannter Fehler';
-    //         }
-    //     }
-    // }
-
-    // #errorMsgUpdateCd(err: UpdateError) {
-    //     switch (err.type) {
-    //         case 'CdNotExists': {
-    //             return `Es gibt kein Cd mit der ID ${err.id}`;
-    //         }
-    //         case 'VersionInvalid': {
-    //             return `"${err.version}" ist keine gueltige Versionsnummer`;
-    //         }
-    //         case 'VersionOutdated': {
-    //             return `Die Versionsnummer "${err.version}" ist nicht mehr aktuell`;
-    //         }
-    //         default: {
-    //             return 'Unbekannter Fehler';
-    //         }
-    //     }
-    // }
 }
