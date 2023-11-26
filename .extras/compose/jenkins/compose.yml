@@ -59,7 +59,7 @@ services:
         reservations:
           cpus: '1.0'
           memory: 4G
-    #user: 'root:root' 
+    user: 'root:root' 
 
   jenkins:
     image: finnlamberti/jenkins:2023.10.0
