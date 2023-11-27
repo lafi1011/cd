@@ -59,7 +59,6 @@ services:
         reservations:
           cpus: '1.0'
           memory: 4G
-    #user: 'root:root' 
 
   jenkins:
     image: finnlamberti/jenkins:2023.10.0
@@ -71,7 +70,7 @@ services:
     networks: [jenkins-network]
     volumes:
       - type: bind
-        # /var/jenkins_home/workspace enthaelt das Verzeichnis "buch"
+        # /var/jenkins_home/workspace enthaelt das Verzeichnis "cd"
         source: C:/Zimmermann/volumes/jenkins/data
         target: /var/jenkins_home
       - type: bind
