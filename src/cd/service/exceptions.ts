@@ -8,7 +8,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
  */
 
 /**
- * Exception-Klasse für eine bereits existierende ISBN-Nummer.
+ * Exception-Klasse für eine bereits existierende ISRC-Nummer.
  */
 export class IsrcExistsException extends HttpException {
     constructor(readonly isrc: string) {

@@ -40,13 +40,12 @@ export class QueryBuilder {
     }
 
     /**
-     * Eine cD mit der ID suchen.
+     * Eine CD mit der ID suchen.
      * @param id ID der gesuchten CD
      * @returns QueryBuilder
      */
     buildId({ id, mitLiedern = false }: BuildIdParams) {
         const queryBuilder = this.#repo.createQueryBuilder(this.#cdAlias);
-        //queryBuilder.select(`${this.#cdAlias}.titel`);
         if (mitLiedern) {
             queryBuilder.leftJoinAndSelect(
                 `${this.#cdAlias}.lieder`,
@@ -66,7 +65,6 @@ export class QueryBuilder {
         this.#logger.debug('build: titel=%s, props=%o', titel, props);
 
         let queryBuilder = this.#repo.createQueryBuilder(this.#cdAlias);
-        //queryBuilder.innerJoinAndSelect(`${this.#cdAlias}.titel`, 'titel');
 
         let useWhere = true;
         if (titel !== undefined && typeof titel === 'string') {

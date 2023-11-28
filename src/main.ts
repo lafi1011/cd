@@ -61,14 +61,3 @@ const bootstrap = async () => {
 
 // Top-level await ab ES 2020
 await bootstrap();
-
-// IIFE  = Immediately Invoked Function Expression
-// IIAFE = Immediately Invoked Asynchronous Function Expression
-// (async () => {
-//     await bootstrap(); // ab ES 2017
-// })();
-
-// Promise mit then() ab ES 2015
-// bootstrap()
-//     .then(() => console.log(`Server gestartet auf Port ${port}`)) // eslint-disable-line security-node/detect-crlf
-//     .catch((err) => console.error('Fehler bei bootstrap():', err));

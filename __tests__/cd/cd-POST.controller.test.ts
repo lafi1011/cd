@@ -34,7 +34,7 @@ import { loginRest } from '../login.js';
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
 const neuesCd: CdDTO = {
-    isrc: '978-0-007-00644-1',
+    isrc: 'DEA239812222',
     bewertung: 1,
     genre: 'TRAP',
     preis: 99.99,
@@ -60,7 +60,7 @@ const neuesCdInvalid: Record<string, unknown> = {
     titel: 'https://post.rest',
 };
 const neuesCdIsbnExistiert: CdDTO = {
-    isrc: '978-3-897-22583-1',
+    isrc: 'DEA239810012',
     bewertung: 1,
     genre: 'TRAP',
     preis: 99.99,

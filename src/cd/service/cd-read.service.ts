@@ -1,8 +1,8 @@
 import { type CDGenre, Cd } from './../entity/cd.entity.js';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryBuilder } from './query-builder.js';
-import RE2 from 're2';
 import { getLogger } from '../../logger/logger.js';
+import re2 from 're2';
 
 /**
  * Typdefinition für `findById`
@@ -33,7 +33,7 @@ export interface Suchkriterien {
  */
 @Injectable()
 export class CdReadService {
-    static readonly ID_PATTERN = new RE2('^[1-9][\\d]*$');
+    static readonly ID_PATTERN = new re2('^[1-9][\\d]*$');
 
     readonly #cdProps: string[];
 

@@ -18,7 +18,7 @@ import { Lied } from './lied.entity.js';
 import { dbType } from '../../config/dbtype.js';
 
 /**
- * Alias-Typ für gültige Strings bei der Art eines Buches.
+ * Alias-Typ für gültige Strings bei der Art einer Cd.
  */
 export type CDGenre = 'HIP HOP' | 'TRAP' | 'Rock';
 
@@ -28,8 +28,6 @@ export type CDGenre = 'HIP HOP' | 'TRAP' | 'Rock';
 @Entity()
 export class Cd {
     @Column('int')
-    // CAVEAT: zuerst @Column() und erst dann @PrimaryGeneratedColumn()
-    // default: strategy = 'increment' (SEQUENCE, GENERATED ALWAYS AS IDENTITY, AUTO_INCREMENT)
     @PrimaryGeneratedColumn()
     id: number | undefined;
 
@@ -72,7 +70,6 @@ export class Cd {
     @ApiProperty({ example: 'Ken Carson', type: String })
     readonly titel: string | undefined;
 
-    // undefined wegen Updates
     @OneToMany(() => Lied, (lied) => lied.cd, {
         cascade: ['insert', 'remove'],
     })

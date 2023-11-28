@@ -33,7 +33,7 @@ import { loginRest } from '../login.js';
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
 const geaendertesCd: CdDtoOhneRef = {
-    isrc: '978-0-201-63361-0',
+    isrc: 'DEA706810012',
     bewertung: 5,
     genre: 'TRAP',
     preis: 3333,
@@ -45,7 +45,7 @@ const geaendertesCd: CdDtoOhneRef = {
 const idVorhanden = '30';
 
 const geaendertesCdIdNichtVorhanden: CdDtoOhneRef = {
-    isrc: '978-0-007-09732-6',
+    isrc: 'DEA239810034',
     bewertung: 4,
     genre: 'TRAP',
     preis: 44.4,
@@ -68,7 +68,7 @@ const geaendertesCdInvalid: Record<string, unknown> = {
 };
 
 const veraltesCd: CdDtoOhneRef = {
-    isrc: '978-0-007-09732-6',
+    isrc: 'DEA239810450',
     bewertung: 1,
     genre: 'TRAP',
     preis: 44.4,

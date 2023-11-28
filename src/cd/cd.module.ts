@@ -13,7 +13,7 @@ import { entities } from './entity/entities.js';
 
 /**
  * Das Modul besteht aus Controller- und Service-Klassen für die Verwaltung von
- * Bücher.
+ * CDs.
  * @packageDocumentation
  */
 

@@ -16,8 +16,8 @@ import { CdReadService } from './cd-read.service.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Lied } from '../entity/lied.entity.js';
 import { MailService } from '../../mail/mail.service.js';
-import RE2 from 're2';
 import { getLogger } from '../../logger/logger.js';
+import re2 from 're2';
 
 /** Typdefinitionen zum Aktualisieren eines Cdes mit `update`. */
 export interface UpdateParams {
@@ -31,11 +31,11 @@ export interface UpdateParams {
 
 /**
  * Die Klasse `CdWriteService` implementiert den Anwendungskern für das
- * Schreiben von Bücher und greift mit _TypeORM_ auf die DB zu.
+ * Schreiben von Cds und greift mit _TypeORM_ auf die DB zu.
  */
 @Injectable()
 export class CdWriteService {
-    private static readonly VERSION_PATTERN = new RE2('^"\\d*"');
+    private static readonly VERSION_PATTERN = new re2('^"\\d*"');
 
     readonly #repo: Repository<Cd>;
 
@@ -56,10 +56,10 @@ export class CdWriteService {
     }
 
     /**
-     * Ein neues Cd soll angelegt werden.
+     * Eine neue Cd soll angelegt werden.
      * @param cd Das neu abzulegende Cd
      * @returns Die ID des neu angelegten Cdes
-     * @throws IsrcExists falls die ISBN-Nummer bereits existiert
+     * @throws IsrcExists falls die ISRC-Nummer bereits existiert
      */
     async create(cd: Cd): Promise<number> {
         this.#logger.debug('create: cd=%o', cd);
@@ -74,7 +74,7 @@ export class CdWriteService {
     }
 
     /**
-     * Ein vorhandenes Cd soll aktualisiert werden.
+     * Eine vorhandene Cd soll aktualisiert werden.
      * @param cd Das zu aktualisierende Cd
      * @param id ID des zu aktualisierenden Cds
      * @param version Die Versionsnummer für optimistische Synchronisation
@@ -106,7 +106,7 @@ export class CdWriteService {
     }
 
     /**
-     * Ein Cd wird asynchron anhand seiner ID gelöscht.
+     * Eine Cd wird asynchron anhand ihrer ID gelöscht.
      *
      * @param id ID des zu löschenden Cdes
      * @returns true, falls das Cd vorhanden war und gelöscht wurde. Sonst false.

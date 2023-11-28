@@ -70,7 +70,7 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            isrc: "978-0-321-19368-1",
+                            isrc: "DEA239810526",
                             bewertung: 1,
                             genre: TRAP,
                             preis: 99.99,

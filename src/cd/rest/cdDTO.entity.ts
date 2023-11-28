@@ -1,4 +1,4 @@
-/* eslint-disable max-classes-per-file, @typescript-eslint/no-magic-numbers */
+/* eslint-disable max-classes-per-file */
 /**
  * Das Modul besteht aus der Entity-Klasse.
  * @packageDocumentation
@@ -7,8 +7,8 @@
 import {
     IsArray,
     IsBoolean,
-    IsISBN,
     IsISO8601,
+    IsISRC,
     IsInt,
     IsOptional,
     IsPositive,
@@ -25,11 +25,11 @@ import { Type } from 'class-transformer';
 export const MAX_RATING = 5;
 
 /**
- * Entity-Klasse für Bücher ohne TypeORM und ohne Referenzen.
+ * Entity-Klasse für Cds ohne TypeORM und ohne Referenzen.
  */
 export class CdDtoOhneRef {
-    @IsISBN(13)
-    @ApiProperty({ example: '978-0-007-00644-1', type: String })
+    @IsISRC()
+    @ApiProperty({ example: 'NWO776655312', type: String })
     readonly isrc!: string;
 
     @IsInt()
@@ -66,7 +66,7 @@ export class CdDtoOhneRef {
 }
 
 /**
- * Entity-Klasse für Bücher ohne TypeORM.
+ * Entity-Klasse für Cds ohne TypeORM.
  */
 export class CdDTO extends CdDtoOhneRef {
     @IsOptional()
@@ -76,4 +76,4 @@ export class CdDTO extends CdDtoOhneRef {
     @ApiProperty({ type: [LiedDTO] })
     readonly lieder: LiedDTO[] | undefined;
 }
-/* eslint-enable max-classes-per-file, @typescript-eslint/no-magic-numbers */
+/* eslint-enable max-classes-per-file */

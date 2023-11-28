@@ -89,7 +89,7 @@ export class CdWriteController {
     }
 
     /**
-     * Eine vorhanden Cd wird asynchron aktualisiert.
+     * Eine vorhandene Cd wird asynchron aktualisiert.
      *
      * @param cd Cddaten im Body des Request-Objekts.
      * @param id Pfad-Paramater für die ID.
@@ -149,7 +149,7 @@ export class CdWriteController {
     }
 
     /**
-     * Ein Cd wird anhand seiner ID-gelöscht, die als Pfad-Parameter angegeben
+     * Eine Cd wird anhand seiner ID-gelöscht, die als Pfad-Parameter angegeben
      * ist.
      *
      * @param id Pfad-Paramater für die ID.
